@@ -38,7 +38,7 @@ SECRET_KEY = 'django-insecure-u7&x3=y+wx1&knn7#vn)&^$qc#_-hl6p3=us)#-zj&q-k+0=9!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8000-njorogetracy-manageydrf-rv1jt2g4dwe.ws-eu114.gitpod.io',]
 
 
 # Application definition
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'profiles',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'managey_drf.urls'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-njorogetracy-manageydrf-rv1jt2g4dwe.ws-eu114.gitpod.io',
+]
 
 TEMPLATES = [
     {
