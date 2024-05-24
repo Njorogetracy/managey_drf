@@ -21,6 +21,7 @@ class Task(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
+    due_date = models.DateTimeField(blank=True, null=True)
     overdue = models.BooleanField(default=False)
     assigned_users = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_to')
     priority = models.CharField(max_length=255, choices=PRIORITY_CHOICES, default='Low')
