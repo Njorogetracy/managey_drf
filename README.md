@@ -31,9 +31,11 @@ View Backend README.md file: []()
 
 # [Models](Models)
 ## Profile
-- The profile model has a one to one relationship with the userID, this is refrenced by the userID within the profile. 
+- The profile model has a one to one relationship with the user, this is refrenced by the userID within the profile. 
 - The model contains the following fields: created_at, updated_at, name, bio, image, owner, is_owner
 ## Task
+- The task model has a one to many relationship with the user. It refrences the UerID
+- The model contains the following fields: owner, created_at, updated_at, title, description, attachment, overdue, assigned_users, priority, state
 ## Comments
 
 # [Testing](Tests)
@@ -48,7 +50,7 @@ View Backend README.md file: []()
 - [cloudinary]()
 - [rest_framework]()
 - [Pillow]()
-- [cloudinary_storage]
+- [cloudinary_storage]()
 ## Other tools
 - [GitHub]()
 - [Gitpod]()
