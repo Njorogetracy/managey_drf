@@ -12,9 +12,12 @@ class TaskSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     class Meta:
-        model = Profile
+        model = Task
         fields = [
             'id', 
+            'is_owner',
+            'profile_image',
+            'profile_id',
             'owner', 
             'created_at', 
             'updated_at', 
@@ -25,8 +28,5 @@ class TaskSerializer(serializers.ModelSerializer):
             'assigned_users', 
             'priority', 
             'state', 
-            'due_date' 
-            'is_owner', 
-            'profile_id', 
-            'profile_image'
+            'due_date'  
         ]
