@@ -1,9 +1,6 @@
 from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework import status
 from .models import Profile
 from .serializers import ProfileSerializer
-from django.http import Http404
 from managey_drf.permissions import IsOWnerorReadOnly
 
 class ProfileList(generics.ListAPIView):
