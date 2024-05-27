@@ -30,11 +30,17 @@ View Backend README.md file: []()
 - The following image represents the database model structure of the web application: ![ERD-Image](). The image was created using [Lucid]()
 
 # [Models](Models)
+## User 
+- The user model is part of the django alluth library
+- The user model contains all the information of the user
+- Has a one to one relationship with the owner field in the profile model
+- Has a one to many relatiionship with the Task model
+- Has a one to many relatiionship with the Comments model 
 ## Profile
-- The profile model has a one to one relationship with the user, this is refrenced by the userID within the profile. 
+- The profile model has a one to one relationship with the user, this is refrenced by the userID field within the profile. 
 - The model contains the following fields: created_at, updated_at, name, bio, image, owner, is_owner
 ## Task
-- The task model has a one to many relationship with the user. It refrences the UerID
+- The task model has a one to many relationship with the user. It refrences the UserID
 - The model contains the following fields: owner, created_at, updated_at, title, description, attachment, overdue, assigned_users, priority, state
 ## Comments
 
@@ -57,3 +63,4 @@ View Backend README.md file: []()
 - [Heroku]()
 - [Cloudinary]()
 - [GitBash]()
+- [asgiref]()
