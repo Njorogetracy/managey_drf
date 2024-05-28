@@ -25,11 +25,11 @@ class Task(models.Model):
     due_date = models.DateTimeField(blank=True, null=True)
     overdue = models.BooleanField(default=False)
     assigned_users = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True, 
-        related_name='assigned_to')
+                                        User,
+                                        on_delete=models.CASCADE,
+                                        blank=True,
+                                        null=True, 
+                                        related_name='assigned_to')
     priority = models.CharField(max_length=255, choices=PRIORITY_CHOICES, default='Low')
     state = models.CharField(max_length=255, choices=STATUS, default='Not-started')
     attachment = models.ImageField(
