@@ -15,9 +15,8 @@ class CommentsSerializer(serializers.ModelSerializer):
         model = Comments
         fields = [
             'id', 'is_owner', 'owner', 'profile_id',
-            'profile_image', 'created_at', 'updated_at', 'content'
+            'profile_image', 'task', 'created_at', 'updated_at', 'content'
         ]
 
-
 class CommentsDetailSerializer(CommentsSerializer):
-    task = serializers.ReadOnlyField(source=task.id)
+    task = serializers.ReadOnlyField(source='task.id')
