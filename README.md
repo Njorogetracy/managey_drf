@@ -49,8 +49,18 @@ View Backend README.md file: []()
 
 # [Testing](Tests)
 The following tests were carried out on the application:
-1. Manual Testing on User Story
+1. Manual Tests
 2. Automated tests
+
+## Manual Tests
+- As an admin, I would like to create, edit and delete users tasks and comments so I have control over the content in my application.
+
+| **Test** | **Action** | **Expected Result** | **Actual Result** |
+|----------|------------|---------------------|-------------------|
+| User | Create, update, delete user | a user can be created, updated and deleted | works as expected |
+| Profile | Create, update, delete profile | a user profile can be created, updated and deleted | works as expected |
+| Task | Create, update, delete task | a task can be created, updated and deleted | works as expected |
+| Comment | Create, update, delete comment | a user comment can be created, updated and deleted | works as expected |
 
 
 ## Automated tests
