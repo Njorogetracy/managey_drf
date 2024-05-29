@@ -1,76 +1,29 @@
+from django.db.models import Count
 from django.http import Http404
-from rest_framework import status, permissions
+from rest_framework import generics, status, permissions
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Task
 from .serializers import TaskSerializer
 from managey_drf.permissions import IsOWnerorReadOnly
 
-class TaskList(APIView):
+class TaskList(generics.ListCreateAPIView):
+    queryset = Task.objects.annotate(
+        comments_count = Count(
+            'comments', distinct=True
+        )
+    ).order_by('-created_at')
     serializer_class = TaskSerializer
+    filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
+    search_fields = ['owner__username', 'priority', 'state']
+    ordering_fields = ['comments_count']
+    filterset_fields = ['priority','state','assigned_users']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    filter_backends = [SearchFilter]
-    search_fields = ['title', 'assigned_user', 'priority', 'state']
-    def get(self, request):
-        tasks = Task.objects.all()
-        serializer = TaskSerializer(
-            tasks, many=True, context={'request':request}
-        )
-        return Response(serializer.data)
 
-    def post(self, request):
-        serializer = TaskSerializer(
-            data=request.data, context={'request': request}
-        )
-        if serializer.is_valid():
-            serializer.save(owner=request.user)
-            return Response(
-                serializer.data, status=status.HTTP_201_CREATED
-            )
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-class TaskDetail(APIView):
-    permission_classes = [IsOWnerorReadOnly]
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
     serializer_class = TaskSerializer
-
-    def get_object(self, pk):
-        try:
-            task = Task.objects.get(pk=pk)
-            self.check_object_permissions(self.request, task)
-            return task
-        except Task.DoesNotExist:
-            raise Http404
-
-
-    def get(self, request, pk):
-        task = self.get_object(pk)
-        serializer = TaskSerializer(
-            task, context={'request':request}
-        )
-        return Response(serializer.data)
-
-
-    def put(self, request, pk):
-        task = self.get_object(pk)
-        serializer = TaskSerializer(
-            task, data=request.data, context={'request':request}
-        )
-        if serializer.is_valid():
-            serializer.save(owner=request.user)
-            return Response(
-                serializer.data
-            )
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
-
-    def delete(self, request, pk):
-        task = self.get_object(pk)
-        task.delete()
-        return Response(
-            status=status.HTTP_204_NO_CONTENT
-        )
+    permission_classes = [IsOWnerorReadOnly]

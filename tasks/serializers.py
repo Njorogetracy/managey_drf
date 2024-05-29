@@ -6,6 +6,7 @@ class TaskSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    comments_count = serializers.ReadOnlyField()
 
     def validate_attachment(self, value):
         if value.content_type not in ['image/jpeg', 'image/png', 'image/gif']:
@@ -16,7 +17,7 @@ class TaskSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Image width is larger than 2048px!')
         if value.image.height > 2048:
             raise serializers.ValidationError('Image height is larger than 2048px!')
-        return Value
+        return value
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -39,5 +40,6 @@ class TaskSerializer(serializers.ModelSerializer):
             'assigned_users', 
             'priority', 
             'state', 
-            'due_date'  
+            'due_date',
+            'comments_count'
         ]
