@@ -48,6 +48,28 @@ View Backend README.md file: []()
 - It has the follwowing fields: id, owner, created_at, updated_at, content taskID
 
 # [Testing](Tests)
+The following tests were carried out on the application:
+1. Manual Testing on User Story
+2. Automated tests
+
+
+## Automated tests
+Automated tests were conduted using Django Rest Framework APITestCase
+- Summary
+<details>
+  <summary>Task test report</summary>
+  <img src="docs/testing/automated/loggedin-user-can-create-task.png" alt= "user-create-task"/>
+  <img src="docs/testing/automated/loggedout-user-cant-create-task.png" alt= "user-cant-create-task"/>
+  <img src="docs/testing/automated/user-can-list-tasks.png" alt= "user-can-list-task"/>
+  <img src="docs/testing/automated/user-can-retrive-test.png" alt= "user-can-retrieve-task"/>
+  <img src="docs/testing/automated/user-can-update-own-task.png" alt= "user-can-update-own-task"/>
+  <img src="docs/testing/automated/user-cant-delete-other-user-task.png" alt= "user-cant-delete-others'-task"/>
+  <img src="docs/testing/automated/user-cant-retrive-noexistent-task.png" alt= "user-cant-retrive-nonexistent-task"/>
+  <img src="docs/testing/automated/cant-update-others&apos;-task.png" alt= "user-cant-update-others'-task"/>
+  <img src="docs/testing/automated/user-can-delete-own-task.png" alt= "user-can-delete-own-task"/>
+</details>
+
+
 
 # [Technologies Used](Tech-stack)
 ## Languages
