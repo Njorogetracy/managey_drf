@@ -43,6 +43,9 @@ View Backend README.md file: []()
 - The task model has a one to many relationship with the user. It refrences the UserID
 - The model contains the following fields: owner, created_at, updated_at, title, description, attachment, overdue, assigned_users, priority, state
 ## Comments
+- The comments model has a one to many relationship with user, it references the UserID
+- It has a foreignkey relation with the task moel, it references the TaskID
+- It has the follwowing fields: id, owner, created_at, updated_at, content taskID
 
 # [Testing](Tests)
 
@@ -57,6 +60,7 @@ View Backend README.md file: []()
 - [rest_framework]()
 - [Pillow]()
 - [cloudinary_storage]()
+- [django-filter]()
 ## Other tools
 - [GitHub]()
 - [Gitpod]()
@@ -64,3 +68,4 @@ View Backend README.md file: []()
 - [Cloudinary]()
 - [GitBash]()
 - [asgiref]()
+- [ElephantSQL]()
