@@ -1,5 +1,7 @@
 from django.http import Http404
 from rest_framework import status, permissions
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Task
@@ -9,6 +11,8 @@ from managey_drf.permissions import IsOWnerorReadOnly
 class TaskList(APIView):
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter]
+    search_fields = ['title', 'assigned_user', 'priority', 'state']
     def get(self, request):
         tasks = Task.objects.all()
         serializer = TaskSerializer(
