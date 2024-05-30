@@ -229,7 +229,7 @@ else:
 - Within that newly created Procfile, add the following code to let Heroku know how to run the project:
 ```Python
 release: python manage.py makemigrations && python manage.py migrate
-web: gunicorn drf_api_league_hub.wsgi
+web: gunicorn managey_drf.wsgi
 ```
 - In **settings.py**, we need to tell the project which hosts to allow
 ```Python
