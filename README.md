@@ -137,7 +137,7 @@ Automated tests were conduted using Django Rest Framework APITestCase
 - Add SITE_ID = 1 in settings.py
 - Add the registration url path to the main urls.py file
 - To add the JWT functionality, type **pip install djangorestframework-simplejwt** in the terminal 
-- Add **os.environ['DEV'] = '1'** to the **env.py** file, and **DEBUG = 'DEV' in os.environ** to the **settings.py** file
+- Add **```os.environ['DEV'] = '1'```** to the **env.py** file, and **```DEBUG = 'DEV' in os.environ```** to the **settings.py** file
 - In the settings.py file, add the following code snipet in order to differentiate between the development and production environments, and set the pagination and datetime format:
 ```Python
 REST_PAGINATION = "rest_framework.pagination.PageNumberPagination"
@@ -150,9 +150,10 @@ REST_FRAMEWORK = {
             else "dj_rest_auth.jwt_auth.JWTCookieAuthentication"
         )
     ],
-    "DEFAULT_PAGINATION_CLASS": REST_PAGINATION,
-    "PAGE_SIZE": 100,
-    "DATETIME_FORMAT": "%d %b %Y",
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y'
 } 
 ```
 - To enable authentication of the JWT, cookie declaration and to ensure the tokens are sent over HTTPS add the followinf in the **settings.py** :
@@ -200,8 +201,8 @@ os.environ.setdefault(
     "DATABASE_URL", "YOUR DB URL HERE",
 )
 ```
-- In the terminal type: **pip install dj_database_url** to install 
-- import it into the main **settings.py** file
+- In the terminal type: **pip install dj_database_url** to install your database
+- Import it into the main **settings.py** file
 
 ```Python
 import dj_database_url
@@ -263,7 +264,7 @@ JWT_AUTH_SAMESITE = 'None'
 ```Python
 os.environ.setdefault("SECRET_KEY", "YOUR SECRET KEY HERE")
 ```
--Back in **settings.py**, change the SECRET_KEY value to point to the SECRET_KEY you just created in **env.py**:
+- Back in **settings.py**, change the SECRET_KEY value to point to the SECRET_KEY you just created in **env.py**:
 ```Python
 SECRET_KEY = os.getenv("SECRET_KEY")
 ```

@@ -33,8 +33,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication'
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    )]
+    )],
+   'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y'
 }
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
@@ -53,8 +61,9 @@ SECRET_KEY = 'django-insecure-u7&x3=y+wx1&knn7#vn)&^$qc#_-hl6p3=us)#-zj&q-k+0=9!
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['8000-njorogetracy-manageydrf-rv1jt2g4dwe.ws-eu114.gitpod.io',]
+ALLOWED_HOSTS = ['8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',]
 
 
 # Application definition
@@ -92,7 +101,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'managey_drf.urls'
