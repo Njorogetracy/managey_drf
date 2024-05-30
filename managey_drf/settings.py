@@ -67,7 +67,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://manageydrf-8a469d59154b.herokuapp.com',
 ]
 
-ALLOWED_HOSTS = ['localhost', 'https://manageydrf-8a469d59154b.herokuapp.com',]
+ALLOWED_HOSTS = ['localhost', 'manageydrf-8a469d59154b.herokuapp.com',]
 
 
 # Application definition
