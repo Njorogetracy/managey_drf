@@ -18,8 +18,8 @@ View Backend README.md file: []()
 ## [Technologies Used](Tech-stack)
 ## [Deployment to Heroku](Deployment)
 ## [Credits](Credits)
-    - [Content]()
-    - [Media]()
+    - Content
+    - Media
 ## [Acknowledgement](Acknowledgements)
 
 
@@ -27,7 +27,16 @@ View Backend README.md file: []()
 # [User story](user-story)
 
 # [Entity Relationship Diagram](ERD)
-- The following image represents the database model structure of the web application: ![ERD-Image](). The image was created using [Lucid]()
+<details>
+<summary>The following image represents the database model structure of the web application </summary>
+<img src="docs/erd/erd.png", alt="Entity Relationship diagram"/>
+</details>
+
+## [Logic Flow Diagram](Logic-chart)
+<details>
+<summary>The following image represents the logic flow of the web application </summary>
+<img src="docs/erd/managey.drawio (1).png", alt="Logic Flow diagram"/>
+</details>
 
 # [Models](Models)
 ## User 
@@ -78,8 +87,6 @@ Automated tests were conduted using Django Rest Framework APITestCase
   <img src="docs/testing/automated/cant-update-others&apos;-task.png" alt= "user-cant-update-others'-task"/>
   <img src="docs/testing/automated/user-can-delete-own-task.png" alt= "user-can-delete-own-task"/>
 </details>
-
-
 
 # [Technologies Used](Tech-stack)
 ## Languages
