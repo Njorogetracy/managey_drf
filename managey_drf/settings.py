@@ -63,6 +63,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://manageydrf-8a469d59154b.herokuapp.com',
+]
+
 ALLOWED_HOSTS = ['localhost', 'https://manageydrf-8a469d59154b.herokuapp.com',]
 
 
@@ -120,10 +124,6 @@ JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
 ROOT_URLCONF = 'managey_drf.urls'
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://8000-njorogetracy-manageydrf-rv1jt2g4dwe.ws-eu114.gitpod.io',
-]
 
 TEMPLATES = [
     {
