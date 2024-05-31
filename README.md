@@ -271,3 +271,48 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 - Update the requirements.txt file: **pip freeze > requirements.txt**
 - Add and commit the changes
 ### Deployment
+This project was deployed to Heroku.
+- Use **pip freeze > requirements.txt** to save libraries that need to be installed in the file
+- Cloudinary is used to host the images post, it's important to have a cloudinary account
+- Create an account or login if you have one
+- Navigate to the Dashboard, copy and store the value of the API Environment Variable, this will be used in the Heroku Config Vars
+- The database will be hosted on **ElephantSQL**
+- Login to ELephantSQL or create an account if you don't have one
+- Create a new instance
+- Set up plan, choose a name, and select *Tiny Turtle(free)* plan. Leave the tags option blank
+- Select region, choose the data center nearest to your location
+- Click review, if satisfied with the deatils presented and click create instance button. 
+- On the dashboard, click the newly created instance and get the ElephantSQL database url. It will be used in the Heroku Config Vars
+- Login in to Heroku and login/create new account
+- Create a new app by clicking *new* button, then selecting *create new app* option
+- Choose app name, prefferably the name of the project, select a region and create app
+- Go to settings, reveal the config vars and add required variables; names and values:
+    - CLOUDINARY_URL:
+    - DATABASE_URL:
+    - DISABLE_STATIC:
+    - SECRET_KEY:
+- Go to deploy tab, choose GitHub as a deployment method and search for the name of your repository
+- Connect to the repository, select the branch you would like to build the app from
+- Manually deploy project or setup automatic deploys(automatically deploys your app with every new change)
+- After the app build is complete, click open app, this will redirect you to the deployed link
+
+## Forking the Github Repository
+You can make a copy of the original repository on GitHub. 
+Forking can be done as follows:
+- Navigate to Github.com and login 
+- Once logged in, go to the repository you'd wish to fork
+- At the top right corner of the page, click the fork icon
+- This created a copy of the original project
+**note if you are not a member of an organisation on GitHub then you will not be able to fork your own repository**
+
+## Cloning the Github Repository
+Clonning can be done as follows:
+- Navigate to Github.com and login 
+- Once logged in, go to the repository you'd wish to clone
+- Select the preferred clone method from HTTPS. SSH or GitHub CLI
+- Above the list of files(top right of screen), click Code button
+- Copy the URL using HTTPS, under "HTTPS"
+- Type ```git clone``` in your terminal, and then paste the URL you copied
+- Press Enter to create your local clone.
+
+[Back to Top](#Table-of-Contents)
