@@ -64,14 +64,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://manageydrf-8a469d59154b.herokuapp.com',
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://manageydrf-8a469d59154b.herokuapp.com',
+# ]
 
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
    'localhost',
-   'https://manageydrf-8a469d59154b.herokuapp.com'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
