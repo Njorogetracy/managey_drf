@@ -71,6 +71,7 @@ CSRF_TRUSTED_ORIGINS = [
 ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
    'localhost',
+   'https://manageydrf-8a469d59154b.herokuapp.com'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
