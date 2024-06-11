@@ -1,5 +1,11 @@
 from rest_framework import serializers
 from .models import Task
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
 class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -7,6 +13,7 @@ class TaskSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     comments_count = serializers.ReadOnlyField()
+    assigned_users = UserSerializer(many=True) 
 
     def validate_attachment(self, value):
         if value.content_type not in ['image/jpeg', 'image/png', 'image/gif']:

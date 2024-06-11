@@ -24,11 +24,9 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     due_date = models.DateTimeField(blank=True, null=True)
     overdue = models.BooleanField(default=False)
-    assigned_users = models.ForeignKey(
+    assigned_users = models.ManyToManyField(
                                         User,
-                                        on_delete=models.CASCADE,
-                                        blank=True,
-                                        null=True, 
+                                        blank=True, 
                                         related_name='assigned_to')
     priority = models.CharField(max_length=255, choices=PRIORITY_CHOICES, default='Low')
     state = models.CharField(max_length=255, choices=STATUS, default='Not-started')
