@@ -2,10 +2,6 @@ from rest_framework import serializers
 from .models import Task
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username']
 
 class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -13,7 +9,23 @@ class TaskSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     comments_count = serializers.ReadOnlyField()
-    assigned_users = UserSerializer(many=True) 
+    assigned_users = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        many=True,
+        required=False
+    )
+
+    def create(self, validated_data):
+        assigned_users = validated_data.pop('assigned_users', [])
+        task = Task.objects.create(**validated_data)
+        task.assigned_users.set(assigned_users)
+        return task
+
+    def update(self, instance, validated_data):
+        assigned_users = validated_data.pop('assigned_users', [])
+        instance = super().update(instance, validated_data)
+        instance.assigned_users.set(assigned_users)
+        return instance
 
     def validate_attachment(self, value):
         if value.content_type not in ['image/jpeg', 'image/png', 'image/gif']:
@@ -48,5 +60,5 @@ class TaskSerializer(serializers.ModelSerializer):
             'priority', 
             'state', 
             'due_date',
-            'comments_count'
+            'comments_count',
         ]
