@@ -14,15 +14,22 @@ class TaskSerializer(serializers.ModelSerializer):
         many=True,
         required=False
     )
+    assigned_users_usernames = serializers.SerializerMethodField()
+
+    def get_assigned_users_usernames(self, obj):
+        return [user.username for user in obj.assigned_users.all()]
 
     def create(self, validated_data):
         assigned_users = validated_data.pop('assigned_users', [])
+        print("Creating task with assigned_users:", assigned_users)
         task = Task.objects.create(**validated_data)
         task.assigned_users.set(assigned_users)
+        print(f"Creating task with assigned_users: {assigned_users}")
         return task
 
     def update(self, instance, validated_data):
         assigned_users = validated_data.pop('assigned_users', [])
+        print("Updating task with assigned_users:", assigned_users)
         instance = super().update(instance, validated_data)
         instance.assigned_users.set(assigned_users)
         return instance
@@ -61,4 +68,5 @@ class TaskSerializer(serializers.ModelSerializer):
             'state', 
             'due_date',
             'comments_count',
+            'assigned_users_usernames', 
         ]
