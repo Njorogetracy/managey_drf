@@ -5,6 +5,9 @@ from .models import Comments
 from .serializers import CommentsSerializer, CommentsDetailSerializer
 
 class CommentsList(generics.ListCreateAPIView):
+    """
+    A class to create and list the comments of the logged in user on a task
+    """
     serializer_class = CommentsSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Comments.objects.all()
@@ -16,6 +19,9 @@ class CommentsList(generics.ListCreateAPIView):
 
 
 class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    A class to handle update and delete of comments on a task
+    """
     permission_classes = [IsOWnerorReadOnly]
     serializer_class = CommentsSerializer
     queryset = Comments.objects.all()

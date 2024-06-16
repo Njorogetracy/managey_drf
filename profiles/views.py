@@ -7,6 +7,9 @@ from .serializers import ProfileSerializer
 from managey_drf.permissions import IsOWnerorReadOnly
 
 class ProfileList(generics.ListAPIView):
+    """
+    A class to list all profiles
+    """
     queryset = Profile.objects.annotate(
         tasks_count = Count (
             'owner__task', distinct=True
@@ -18,6 +21,9 @@ class ProfileList(generics.ListAPIView):
     search_fields = ['owner__username']
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
+    """
+    A class for a profile detail.
+    """
     permission_classes = [IsOWnerorReadOnly]
     queryset = Profile.objects.annotate(
         tasks_count = Count (

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Task(models.Model):
+    """
+    A model for the tasks, related to the user
+    """
 
     PRIORITY_CHOICES = [
         ('Low','Low'),

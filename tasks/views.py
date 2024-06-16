@@ -8,6 +8,9 @@ from .serializers import TaskSerializer
 from managey_drf.permissions import IsOWnerorReadOnly
 
 class TaskList(generics.ListCreateAPIView):
+    """
+    A class to create and list the tasks of the logged in user
+    """
     queryset = Task.objects.annotate(
         comments_count = Count(
             'comments', distinct=True
@@ -24,6 +27,9 @@ class TaskList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    A class to handle update and deleting of the tasks
+    """
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsOWnerorReadOnly]

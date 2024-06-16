@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    """
+    A class for a CommentSerializer
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
