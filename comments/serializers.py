@@ -32,3 +32,9 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 class CommentsDetailSerializer(CommentsSerializer):
     task = serializers.ReadOnlyField(source='task.id')
+
+
+class CommentsUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ['content', 'updated_at']

@@ -2,7 +2,7 @@ from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from managey_drf.permissions import IsOWnerorReadOnly
 from .models import Comments
-from .serializers import CommentsSerializer, CommentsDetailSerializer
+from .serializers import CommentsSerializer, CommentsDetailSerializer, CommentsUpdateSerializer
 
 class CommentsList(generics.ListCreateAPIView):
     """
@@ -25,3 +25,8 @@ class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOWnerorReadOnly]
     serializer_class = CommentsSerializer
     queryset = Comments.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            return CommentsUpdateSerializer
+        return CommentsSerializer
