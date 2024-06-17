@@ -34,7 +34,6 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     filter_backends = [OrderingFilter, SearchFilter]
     ordering_fields = ['owner__task']
     search_fields = ['owner__username']
-    serializer_class = ProfileSerializer
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)

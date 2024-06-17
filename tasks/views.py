@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Task
 from .serializers import TaskSerializer
-from managey_drf.permissions import IsOWnerorReadOnly
+from managey_drf.permissions import IsOwnerOrReadOnly
 
 class TaskList(generics.ListCreateAPIView):
     """
@@ -32,5 +32,5 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsOWnerorReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
