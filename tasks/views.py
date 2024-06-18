@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import Http404
 from rest_framework import generics, status, permissions
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,17 +11,22 @@ class TaskList(generics.ListCreateAPIView):
     """
     A class to create and list the tasks of the logged in user
     """
-    queryset = Task.objects.annotate(
-        comments_count = Count(
-            'comments', distinct=True
-        )
-    ).order_by('-created_at')
     serializer_class = TaskSerializer
     filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
     search_fields = ['owner__username', 'priority', 'state']
     ordering_fields = ['comments_count']
     filterset_fields = ['priority','state','assigned_users']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return Task.objects.filter(
+                Q(owner=user) | Q(assigned_users=user)
+            ).annotate(
+                comments_count=Count('comments', distinct=True)
+            ).order_by('-created_at')
+        return Task.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

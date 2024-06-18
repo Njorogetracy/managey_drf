@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
-from managey_drf.permissions import IsOWnerorReadOnly
+from managey_drf.permissions import IsOwnerOrReadOnly
 from .models import Comments
 from .serializers import CommentsSerializer, CommentsDetailSerializer, CommentsUpdateSerializer
 
@@ -22,7 +22,7 @@ class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     A class to handle update and delete of comments on a task
     """
-    permission_classes = [IsOWnerorReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = CommentsSerializer
     queryset = Comments.objects.all()
 

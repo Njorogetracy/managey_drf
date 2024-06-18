@@ -4,7 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Profile
 from .serializers import ProfileSerializer
-from managey_drf.permissions import IsOWnerorReadOnly
+from managey_drf.permissions import IsOwnerOrReadOnly
 
 class ProfileList(generics.ListAPIView):
     """
@@ -24,7 +24,7 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     A class for a profile detail.
     """
-    permission_classes = [IsOWnerorReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
         tasks_count = Count (
             'owner__task', distinct=True
