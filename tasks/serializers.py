@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Task
 from django.contrib.auth.models import User
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -15,6 +17,11 @@ class TaskSerializer(serializers.ModelSerializer):
     assigned_users_usernames = serializers.ListField(
         child=serializers.CharField(), required=False
     )
+
+    def validate_due_date(self, value):
+        if value and value < timezone.now():
+            raise ValidationError("Deadline cannot be in the past")
+        return value
 
     def update(self, instance, validated_data):
         assigned_users_usernames = validated_data.pop(
