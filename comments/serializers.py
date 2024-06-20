@@ -2,6 +2,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Comments
 
+
 class CommentsSerializer(serializers.ModelSerializer):
     """
     A class for a CommentSerializer
@@ -29,6 +30,7 @@ class CommentsSerializer(serializers.ModelSerializer):
             'id', 'is_owner', 'owner', 'profile_id',
             'profile_image', 'task', 'created_at', 'updated_at', 'content'
         ]
+
 
 class CommentsDetailSerializer(CommentsSerializer):
     task = serializers.ReadOnlyField(source='task.id')

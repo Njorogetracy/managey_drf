@@ -2,7 +2,9 @@ from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from managey_drf.permissions import IsOwnerOrReadOnly
 from .models import Comments
-from .serializers import CommentsSerializer, CommentsDetailSerializer, CommentsUpdateSerializer
+from .serializers import (CommentsSerializer,
+CommentsDetailSerializer, CommentsUpdateSerializer)
+
 
 class CommentsList(generics.ListCreateAPIView):
     """

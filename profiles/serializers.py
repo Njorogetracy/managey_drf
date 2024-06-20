@@ -2,10 +2,13 @@ from rest_framework import serializers
 from .models import Profile
 from tasks.models import Task
 
+
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
-        model= Task
-        fields =['id', 'title', 'description', 'due_date', 'priority', 'state']        
+        model = Task
+        fields = [
+            'id', 'title', 'description', 'due_date', 'priority', 'state']
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
@@ -23,12 +26,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_tasks(self, obj):
         request = self.context['request']
         if request.user.is_authenticated:
-            tasks = Task.objects.filter(assigned_users=obj.owner, owner=request.user)
-            return TaskSerializer(tasks, many=True).data 
+            tasks = Task.objects.filter(
+                assigned_users=obj.owner, owner=request.user)
+            return TaskSerializer(tasks, many=True).data
         return []
 
     class Meta:
         model = Profile
         fields = [
-            'id', 'owner', 'created_at', 'updated_at', 'name', 'bio', 'image', 'is_owner', 'tasks_count', 'tasks',
+            'id', 'owner', 'created_at', 'updated_at',
+            'name', 'bio', 'image', 'is_owner', 'tasks_count', 'tasks',
         ]

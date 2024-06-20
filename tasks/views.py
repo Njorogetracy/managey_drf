@@ -7,6 +7,7 @@ from .models import Task
 from .serializers import TaskSerializer
 from managey_drf.permissions import IsOwnerOrReadOnly
 
+
 class TaskList(generics.ListCreateAPIView):
     """
     A class to create and list the tasks of the logged in user
@@ -15,7 +16,7 @@ class TaskList(generics.ListCreateAPIView):
     filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
     search_fields = ['owner__username', 'priority', 'state']
     ordering_fields = ['comments_count']
-    filterset_fields = ['priority','state','assigned_users']
+    filterset_fields = ['priority', 'state', 'assigned_users']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
@@ -31,6 +32,7 @@ class TaskList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     A class to handle update and deleting of the tasks
@@ -38,4 +40,3 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsOwnerOrReadOnly]
-

@@ -6,12 +6,13 @@ from .models import Profile
 from .serializers import ProfileSerializer
 from managey_drf.permissions import IsOwnerOrReadOnly
 
+
 class ProfileList(generics.ListAPIView):
     """
     A class to list all profiles
     """
     queryset = Profile.objects.annotate(
-        tasks_count = Count (
+        tasks_count=Count(
             'owner__task', distinct=True
         )
     ).order_by('-created_at')
@@ -20,13 +21,14 @@ class ProfileList(generics.ListAPIView):
     ordering_fields = ['owner__task']
     search_fields = ['owner__username']
 
+
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
     A class for a profile detail.
     """
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
-        tasks_count = Count (
+        tasks_count=Count(
             'owner__task', distinct=True
         )
     ).order_by('-created_at')

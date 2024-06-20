@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Task(models.Model):
     """
     A model for the tasks, related to the user
     """
 
     PRIORITY_CHOICES = [
-        ('Low','Low'),
+        ('Low', 'Low'),
         ('Medium', 'Medium'),
         ('High', 'High'),
     ]
@@ -19,7 +20,6 @@ class Task(models.Model):
         ('Completed', 'Completed'),
     ]
 
-
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -29,12 +29,14 @@ class Task(models.Model):
     overdue = models.BooleanField(default=False)
     assigned_users = models.ManyToManyField(
                                         User,
-                                        blank=True, 
+                                        blank=True,
                                         related_name='assigned_to')
-    priority = models.CharField(max_length=255, choices=PRIORITY_CHOICES, default='Low')
-    state = models.CharField(max_length=255, choices=STATUS, default='Not-started')
+    priority = models.CharField(
+        max_length=255, choices=PRIORITY_CHOICES, default='Low')
+    state = models.CharField(
+        max_length=255, choices=STATUS, default='Not-started')
     attachment = models.ImageField(
-        upload_to = 'images/', default='../default_post_t6ubcp'
+        upload_to='images/', default='../default_post_t6ubcp'
     )
 
     class Meta:
