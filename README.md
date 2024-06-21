@@ -88,6 +88,29 @@ Automated tests were conduted using Django Rest Framework APITestCase
   <img src="docs/testing/automated/user-can-delete-own-task.png" alt= "user-can-delete-own-task"/>
 </details>
 
+## Admin tests
+Tests were conduted on the Admin panel
+- Summary
+<details>
+  <summary>Task test report</summary>
+  <img src="docs/testing/admin/create-task.png" />
+  <img src="docs/testing/admin/create-task.png" />
+  <img src="docs/testing/admin/create-comment.png" />
+  <img src="docs/testing/admin/delete-comment.png" />
+  <img src="docs/testing/admin/delete-profile.png" />
+  <img src="docs/testing/admin/delete-task.png" />
+  <img src="docs/testing/admin/edit-comment.png" />
+  <img src="docs/testing/admin/edit-profile.png" />
+  <img src="docs/testing/admin/edit-task.png" />
+  <img src="docs/testing/admin/update-profile.png" />
+</details>
+
+#  PEP 8 Validation
+<details>
+<summary>No errors were found</summary>
+<img src= "docs/testing/pep8.jpg"/>
+</details>
+
 # Technologies Used
 ## Languages
 - [Python]()
