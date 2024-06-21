@@ -2,14 +2,10 @@
 
 This is the backend REST API repository whic is used for my frontend project []()
 
-View Live site: []()
+View Live site: [here](https://managey-a1b31600d931.herokuapp.com/)
 
-View API site: []()
-
-View Frontend README.md file: []()
+View Frontend  [here](https://github.com/Njorogetracy/managey)
  
-View Backend README.md file: []()
-
 # Table of Contents
 ## [User story](#user-story)
 ## [Entity Relationship Diagram](#Entity-Relationship-Diagram)
