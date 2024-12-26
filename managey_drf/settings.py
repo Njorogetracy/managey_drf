@@ -52,18 +52,6 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 JWT_AUTH_HTTPONLY = True
 
-if (
-    'ACCESS_TOKEN_LIFETIME' in os.environ and
-    'REFRESH_TOKEN_LIFETIME' in os.environ
-):
-    SIMPLE_JWT = {
-        'ACCESS_TOKEN_LIFETIME': timedelta(
-            seconds=int(os.environ.get('ACCESS_TOKEN_LIFETIME'))
-        ),
-        'REFRESH_TOKEN_LIFETIME': timedelta(
-            seconds=int(os.environ.get('REFRESH_TOKEN_LIFETIME'))
-        ),
-    }
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'managey_drf.serializers.CurrentUserSerializer'
@@ -72,14 +60,13 @@ REST_AUTH_SERIALIZERS = {
 # SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_SECURE = True
 
 if 'DEV' in os.environ:
-    CSRF_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = False
     JWT_AUTH_SECURE = False
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -98,8 +85,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
     'https://managey-a1b31600d931.herokuapp.com',
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-    'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-q3hih9x8wgh.ws-eu117.gitpod.io'
+    'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -113,22 +99,14 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
-#                         'https://managey-a1b31600d931.herokuapp.com',
-#                         'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
-#                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-#                         'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-#                         'https://3000-njorogetracy-managey-q3hih9x8wgh.ws-eu117.gitpod.io'
-#                         ]
+CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
+                        'https://managey-a1b31600d931.herokuapp.com',
+                        'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
+                        'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
+                        'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
+                        'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io'
+                        ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     'https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
-#     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-#     'https://3000-njorogetracy-managey-q3hih9x8wgh.ws-eu117.gitpod.io',
-#     'https://managey-a1b31600d931.herokuapp.com',
-#     'https://manageydrf-8a469d59154b.herokuapp.com',
-#     'https://3000-njorogetracy-managey-6x80vhfxnh6.ws-eu117.gitpod.io'
-# ]
 
 
 # Application definition
@@ -169,6 +147,23 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+   "allauth.account.auth_backends.AuthenticationBackend"
+)
+
+if (
+    'ACCESS_TOKEN_LIFETIME' in os.environ and
+    'REFRESH_TOKEN_LIFETIME' in os.environ
+):
+    SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': timedelta(
+            seconds=int(os.environ.get('ACCESS_TOKEN_LIFETIME'))
+        ),
+        'REFRESH_TOKEN_LIFETIME': timedelta(
+            seconds=int(os.environ.get('REFRESH_TOKEN_LIFETIME'))
+        ),
+    }
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
