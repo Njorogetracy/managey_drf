@@ -98,7 +98,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
     'https://managey-a1b31600d931.herokuapp.com',
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-    'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io'
+    'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
+    'https://3000-njorogetracy-managey-q3hih9x8wgh.ws-eu117.gitpod.io'
 ]
 
 # ALLOWED_HOSTS = [
@@ -114,8 +115,19 @@ CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
 #                         'https://managey-a1b31600d931.herokuapp.com',
 #                         'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
-#                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io'
+#                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
+#                         'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
+#                         'https://3000-njorogetracy-managey-q3hih9x8wgh.ws-eu117.gitpod.io'
 #                         ]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
+    'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
+    'https://3000-njorogetracy-managey-q3hih9x8wgh.ws-eu117.gitpod.io',
+    'https://managey-a1b31600d931.herokuapp.com',
+    'https://manageydrf-8a469d59154b.herokuapp.com',
+    'https://3000-njorogetracy-managey-6x80vhfxnh6.ws-eu117.gitpod.io'
+]
 
 
 # Application definition
