@@ -49,10 +49,37 @@ REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+JWT_AUTH_HTTPONLY = True
+
+if (
+    'ACCESS_TOKEN_LIFETIME' in os.environ and
+    'REFRESH_TOKEN_LIFETIME' in os.environ
+):
+    SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': timedelta(
+            seconds=int(os.environ.get('ACCESS_TOKEN_LIFETIME'))
+        ),
+        'REFRESH_TOKEN_LIFETIME': timedelta(
+            seconds=int(os.environ.get('REFRESH_TOKEN_LIFETIME'))
+        ),
+    }
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'managey_drf.serializers.CurrentUserSerializer'
 }
+
+# SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
+if 'DEV' in os.environ:
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+    JWT_AUTH_SECURE = False
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -61,13 +88,15 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEV' in os.environ
-DEBUG = False
+DEBUG = 'DEV' in os.environ
+# DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
     'https://manageydrf-8a469d59154b.herokuapp.com',
     'http://localhost:3000',
+    'http://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
+    'https://managey-a1b31600d931.herokuapp.com',
 ]
 
 # ALLOWED_HOSTS = [
@@ -75,10 +104,15 @@ CSRF_TRUSTED_ORIGINS = [
 #    'localhost',
 # ]
 ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
-                 '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws. \
-                 codeinstitute-ide.net']
+                 '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
+                 '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io']
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
+                        'https://managey-a1b31600d931.herokuapp.com',
+                        'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
+                        ]
 
 
 # Application definition
@@ -136,10 +170,6 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 CORS_ALLOW_CREDENTIALS = True
 
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
-JWT_AUTH_SAMESITE = 'None'
-
 ROOT_URLCONF = 'managey_drf.urls'
 
 TEMPLATES = [
@@ -183,21 +213,16 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME':
-            'django.contrib.auth.password_validation. \
-            UserAttributeSimilarityValidator',
+        'NAME':'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation. \
-        MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation. \
-        CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation. \
-        NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
