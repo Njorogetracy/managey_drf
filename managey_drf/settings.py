@@ -111,7 +111,8 @@ CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.
                         'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
                         'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-                        'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io'
+                        'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
+                        'https://3000-njorogetracy-managey-mpyr06lyaup.ws-eu117.gitpod.io',
                         ]
 
 
@@ -157,8 +158,10 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-   "allauth.account.auth_backends.AuthenticationBackend"
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
+
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
