@@ -39,6 +39,7 @@ REST_FRAMEWORK = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
+        'rest_framework.authentication.TokenAuthentication'
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
@@ -92,7 +93,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
     'https://managey-a1b31600d931.herokuapp.com',
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-    'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io'
+    'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
+    'https://3000-njorogetracy-managey-o5tmmly19m9.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -113,6 +115,7 @@ CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.
                         'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
                         'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
                         'https://3000-njorogetracy-managey-mpyr06lyaup.ws-eu117.gitpod.io',
+                        'https://3000-njorogetracy-managey-o5tmmly19m9.ws-eu117.gitpod.io'
                         ]
 
 
