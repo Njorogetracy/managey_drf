@@ -30,6 +30,13 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+
+REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
         if 'DEV' in os.environ
@@ -146,24 +153,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 AUTHENTICATION_BACKENDS = (
    "allauth.account.auth_backends.AuthenticationBackend"
 )
-
-if (
-    'ACCESS_TOKEN_LIFETIME' in os.environ and
-    'REFRESH_TOKEN_LIFETIME' in os.environ
-):
-    SIMPLE_JWT = {
-        'ACCESS_TOKEN_LIFETIME': timedelta(
-            seconds=int(os.environ.get('ACCESS_TOKEN_LIFETIME'))
-        ),
-        'REFRESH_TOKEN_LIFETIME': timedelta(
-            seconds=int(os.environ.get('REFRESH_TOKEN_LIFETIME'))
-        ),
-    }
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [

@@ -42,5 +42,5 @@ class CustomLoginView(LoginView):
     def get_response(self):
         response = super().get_response()
         user_serializer = self.get_serializer(self.user)
-        response.data.update(user_serializer.data)  # Include user details in the response
+        response.data.update(user_serializer.data)
         return response
