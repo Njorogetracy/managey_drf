@@ -18,7 +18,7 @@ class ProfileList(generics.ListAPIView):
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
     filter_backends = [OrderingFilter, SearchFilter, DjangoFilterBackend]
-    ordering_fields = ['owner__task']
+    ordering_fields = ['owner__task', 'created_at']
     search_fields = ['owner__username']
 
 
