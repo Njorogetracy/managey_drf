@@ -67,13 +67,13 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'managey_drf.serializers.CurrentUserSerializer'
 }
 
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_SECURE = True
 
 if 'DEV' in os.environ:
-    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
     JWT_AUTH_SECURE = False
 
@@ -95,7 +95,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://managey-a1b31600d931.herokuapp.com',
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-o5tmmly19m9.ws-eu117.gitpod.io'
+    'https://3000-njorogetracy-managey-o5tmmly19m9.ws-eu117.gitpod.io',
+    'https://8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
+    'https://3000-njorogetracy-managey-qry4767vvzk.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -105,7 +107,8 @@ ALLOWED_HOSTS = [
 ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
                  '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
                  '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-                 '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io']
+                 '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
+                 '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -149,9 +152,13 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = False
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

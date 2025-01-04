@@ -41,9 +41,6 @@ def logout_route(request):
 class CustomLoginView(LoginView):
     def get_response(self):
         response = super().get_response()
-
         user_serializer = CurrentUserSerializer(self.user)
-
         response.data.update(user_serializer.data)
-
         return response
