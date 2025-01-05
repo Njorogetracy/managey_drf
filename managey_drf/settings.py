@@ -98,7 +98,9 @@ ALLOWED_HOSTS = [
    os.environ.get('ALLOWED_HOST'),
    'localhost',
 ]
-ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
+ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com',
+                 'managey-a1b31600d931.herokuapp.com'
+                 'localhost',
                  '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
                  '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
                  '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
