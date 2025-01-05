@@ -33,7 +33,7 @@ class ProfileList(generics.ListAPIView):
     
 
 
-class ProfileDetail(generics.RetrieveUpdateAPIView):
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     A class for a profile detail.
     """
@@ -50,3 +50,9 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Handles deletion of a profile.
+        """
+        return self.destroy(request, *args, **kwargs)
