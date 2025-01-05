@@ -84,8 +84,8 @@ if 'DEV' in os.environ:
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEV' in os.environ
-DEBUG = False
+DEBUG = 'DEV' in os.environ
+# DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
@@ -109,7 +109,7 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
                  '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
                  '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io']
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
                         'https://managey-a1b31600d931.herokuapp.com',
@@ -223,8 +223,7 @@ if 'DEV' in os.environ:
 else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-     }
-    print('connected')
+    }
 
 
 # Password validation
