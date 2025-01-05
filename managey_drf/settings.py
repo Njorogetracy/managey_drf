@@ -97,7 +97,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
     'https://3000-njorogetracy-managey-o5tmmly19m9.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-qry4767vvzk.ws-eu117.gitpod.io'
+    'https://3000-njorogetracy-managey-qry4767vvzk.ws-eu117.gitpod.io',
+    'https://3000-njorogetracy-managey-12njd7waod6.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -108,7 +109,8 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
                  '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
                  '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
                  '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-                 '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io']
+                 '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
+                 '3000-njorogetracy-managey-12njd7waod6.ws-eu117.gitpod.io']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -118,8 +120,7 @@ CORS_ALLOWED_ORIGINS = ['https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.
                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
                         'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
                         'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-                        'https://3000-njorogetracy-managey-mpyr06lyaup.ws-eu117.gitpod.io',
-                        'https://3000-njorogetracy-managey-o5tmmly19m9.ws-eu117.gitpod.io'
+                        'https://3000-njorogetracy-managey-12njd7waod6.ws-eu117.gitpod.io'
                         ]
 
 
@@ -216,14 +217,14 @@ WSGI_APPLICATION = 'managey_drf.wsgi.application'
 
 if 'DEV' in os.environ:
     DATABASES = {
-         'default': {
-             'ENGINE': 'django.db.backends.sqlite3',
-             'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
          }
      }
 else:
     DATABASES = {
-         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
      }
     print('connected')
 
