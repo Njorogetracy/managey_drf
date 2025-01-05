@@ -65,6 +65,7 @@ SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_NAMR = 'csrftoken'
 
 if 'DEV' in os.environ:
     CSRF_COOKIE_SECURE = False
@@ -105,7 +106,7 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
                  '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
                  '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io']
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
                         'https://managey-a1b31600d931.herokuapp.com',
