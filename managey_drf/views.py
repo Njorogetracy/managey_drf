@@ -40,3 +40,11 @@ def logout_route(request):
         secure=JWT_AUTH_SECURE,
     )
     return response
+
+#Added a custom login view
+class CustomLoginView(LoginView):
+    def get_response(self):
+        response = super().get_response()
+        user_serializer = CurrentUserSerializer(self.user)
+        response.data.update(user_serializer.data)
+        return response
