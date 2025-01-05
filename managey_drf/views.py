@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from dj_rest_auth.views import LoginView
 from .settings import (
@@ -8,6 +9,7 @@ from .settings import (
 
 
 @api_view()
+@permission_classes([AllowAny])
 def root_route(request):
     return Response({
         "message": "Welcome to my managey_drf API!"

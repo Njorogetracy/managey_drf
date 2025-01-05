@@ -30,12 +30,6 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated'
-    ),
-}
-
-REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -95,7 +89,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io'
+    'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
+    'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -107,7 +102,8 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com', 'localhost',
                  '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
                  '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
                  '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-                 '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io']
+                 '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
+                 '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io']
 
 # CORS_ORIGIN_ALLOW_ALL = True
 
@@ -118,7 +114,8 @@ CORS_ALLOWED_ORIGINS = [
                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
                         'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
                         'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-                        'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io'
+                        'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
+                        'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io'
                         ]
 
 
