@@ -31,7 +31,7 @@ urlpatterns = [
         'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('dj-rest-auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('dj-rest-auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
-    path('dj-rest-auth/login/', CustomLoginView.as_view(), name='custom-login'),
+    # path('dj-rest-auth/login/', CustomLoginView.as_view(), name='custom-login'),
     path('', include('profiles.urls')),
     path('', include('tasks.urls')),
     path('', include('comments.urls')),

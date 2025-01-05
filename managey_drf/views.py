@@ -6,6 +6,7 @@ from .settings import (
     JWT_AUTH_COOKIE, JWT_AUTH_REFRESH_COOKIE, JWT_AUTH_SAMESITE,
     JWT_AUTH_SECURE,
 )
+from django.views.decorators.csrf import csrf_exempt
 
 
 @api_view()
@@ -16,6 +17,7 @@ def root_route(request):
     })
 
 
+@csrf_exempt
 @api_view(['POST'])
 def logout_route(request):
     response = Response()
@@ -40,9 +42,9 @@ def logout_route(request):
     return response
 
 #Added a custom login view
-class CustomLoginView(LoginView):
-    def get_response(self):
-        response = super().get_response()
-        user_serializer = CurrentUserSerializer(self.user)
-        response.data.update(user_serializer.data)
-        return response
+# class CustomLoginView(LoginView):
+#     def get_response(self):
+#         response = super().get_response()
+#         user_serializer = CurrentUserSerializer(self.user)
+#         response.data.update(user_serializer.data)
+#         return response

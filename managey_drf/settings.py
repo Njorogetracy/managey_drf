@@ -65,7 +65,7 @@ SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_NAMR = 'csrftoken'
+CSRF_COOKIE_NAME = 'csrftoken'
 
 if 'DEV' in os.environ:
     CSRF_COOKIE_SECURE = False
@@ -83,7 +83,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
     'https://managey-a1b31600d931.herokuapp.com',
     'https://manageydrf-8a469d59154b.herokuapp.com',
     'http://localhost:3000',
@@ -91,7 +90,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
     'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
-    'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io'
+    'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
+    'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
 ]
 
 ALLOWED_HOSTS = [
@@ -108,10 +108,11 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com',
                  '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
                  '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io']
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOWED_ORIGINS = [
                         'https://managey-a1b31600d931.herokuapp.com',
+                        'https://manageydrf-8a469d59154b.herokuapp.com',
                         'https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
                         'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
                         'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
