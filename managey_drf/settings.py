@@ -78,8 +78,8 @@ if 'DEV' in os.environ:
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
-# DEBUG = False
+# DEBUG = 'DEV' in os.environ
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
