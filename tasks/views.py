@@ -6,8 +6,13 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Task
 from .serializers import TaskSerializer
 from managey_drf.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+from django.views.decorators.csrf import api_view, csrf_exempt
 
 
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 class TaskList(generics.ListCreateAPIView):
     """
     A class to create and list the tasks of the logged in user
