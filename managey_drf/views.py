@@ -6,7 +6,7 @@ from .settings import (
     JWT_AUTH_COOKIE, JWT_AUTH_REFRESH_COOKIE, JWT_AUTH_SAMESITE,
     JWT_AUTH_SECURE,
 )
-from django.views.decorators.csrf import csrf_exempt
+
 
 
 @api_view()
@@ -16,8 +16,6 @@ def root_route(request):
         "message": "Welcome to my managey_drf API!"
     })
 
-
-@csrf_exempt
 @api_view(['POST'])
 def logout_route(request):
     response = Response()

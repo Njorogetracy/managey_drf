@@ -19,6 +19,11 @@ from django.urls import path, include
 from .views import root_route
 from .views import logout_route, CustomLoginView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenBlacklistView,
+)
 
 
 urlpatterns = [
@@ -30,9 +35,12 @@ urlpatterns = [
     path(
         'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('dj-rest-auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('dj-rest-auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
+    path('dj-rest-auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('dj-rest-auth/login/', CustomLoginView.as_view(), name='custom-login'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('profiles.urls')),
     path('', include('tasks.urls')),
     path('', include('comments.urls')),
+    path('dj-rest-auth/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist')
 ]
