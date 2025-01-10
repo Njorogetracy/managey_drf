@@ -29,17 +29,38 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+#         'rest_framework.authentication.SessionAuthentication'
+#         if 'DEV' not in os.environ 
+#         else 'rest_framework.authentication.SessionAuthentication',
+#     ],
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10,
+#     'DATETIME_FORMAT': '%d %b %Y'
+# }
+
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' not in os.environ 
-        else 'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DATETIME_FORMAT': '%d %b %Y'
+    'DATETIME_FORMAT': '%d %b %Y',
 }
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 
 SIMPLE_JWT = {
@@ -50,16 +71,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
 }
 
-if 'DEV' not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-        'rest_framework.renderers.JSONRenderer',
-    ]
 
-
-REST_USE_JWT = True
-JWT_AUTH_SECURE = True
-JWT_AUTH_COOKIE = "my-app-auth"
-JWT_AUTH_REFRESH_COOKIE = "my-refresh-token"
 JWT_AUTH_SAMESITE = "None"
 JWT_AUTH_HTTPONLY = True
 
@@ -100,6 +112,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
     'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
+    'https://8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -114,7 +127,8 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com',
                  '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
                  '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
                  '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
-                 '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io']
+                 '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
+                 '8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io']
 
 CORS_ORIGIN_ALLOW_ALL = False
 
@@ -167,22 +181,15 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware'
 ]
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
@@ -199,6 +206,11 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
     ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 ROOT_URLCONF = 'managey_drf.urls'
 

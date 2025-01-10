@@ -19,11 +19,6 @@ from django.urls import path, include
 from .views import root_route
 from .views import logout_route, CustomLoginView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenBlacklistView,
-)
 
 
 urlpatterns = [
@@ -42,5 +37,4 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('', include('tasks.urls')),
     path('', include('comments.urls')),
-    path('dj-rest-auth/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist')
 ]
