@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 import re
+from datetime import timedelta
 
 if os.path.exists('env.py'):
     import env
@@ -57,6 +58,7 @@ if 'DEV' not in os.environ:
         'rest_framework.renderers.JSONRenderer',
     ]
 
+
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
@@ -64,8 +66,8 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': 'timedelta(minutes=60)',
-    'REFRESH_TOKEN_LIFETIME': 'timedelta(days=7)',
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'AUTH_HEADER_TYPES': ('Bearer',),
     'BLACKLIST_AFTER_ROTATION': True,
     'ROTATE_REFRESH_TOKENS': True,
@@ -91,6 +93,7 @@ if 'DEV' in os.environ:
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
     JWT_AUTH_SECURE = False
+    JWT_AUTH_SAMESITE = "Lax"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -99,8 +102,8 @@ if 'DEV' in os.environ:
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEV' in os.environ
-DEBUG = False
+DEBUG = 'DEV' in os.environ
+# DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
     'https://managey-a1b31600d931.herokuapp.com',
@@ -117,20 +120,21 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 ALLOWED_HOSTS = [
-   os.environ.get('ALLOWED_HOST'),
-   'localhost',
+    os.environ.get('ALLOWED_HOST'),
+    'manageydrf-8a469d59154b.herokuapp.com',
+    'managey-a1b31600d931.herokuapp.com',
+    'localhost',
+    '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
+    '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
+    '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
+    '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
+    '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
+    '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
+    '8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io',
+    '3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io',
+    '8000-njorogetracy-manageydrf-y4gopnnwl7d.ws-eu117.gitpod.io'
 ]
-ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com',
-                 'managey-a1b31600d931.herokuapp.com'
-                 'localhost',
-                 '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
-                 '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-                 '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-                 '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-                 '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
-                 '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-                 '8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io',
-                 '3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io']
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 
