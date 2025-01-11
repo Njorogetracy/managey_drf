@@ -96,6 +96,8 @@ SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY= True
+CSRF_USE_SESSIONS= True
 
 
 if 'DEV' in os.environ:
@@ -125,7 +127,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
     'https://8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io'
+    'https://3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io',
+    'https://8000-njorogetracy-manageydrf-y4gopnnwl7d.ws-eu117.gitpod.io'
 ]
 
 ALLOWED_HOSTS = [
@@ -197,8 +200,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -206,6 +209,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
