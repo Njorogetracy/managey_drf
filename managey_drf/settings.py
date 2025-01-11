@@ -132,7 +132,7 @@ ALLOWED_HOSTS = ['manageydrf-8a469d59154b.herokuapp.com',
                  '8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io',
                  '3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io']
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
                         'https://managey-a1b31600d931.herokuapp.com',
