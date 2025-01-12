@@ -87,8 +87,9 @@ DEBUG = 'DEV' in os.environ
 CSRF_TRUSTED_ORIGINS = [
     'https://managey-a1b31600d931.herokuapp.com',
     'https://manageydrf-8a469d59154b.herokuapp.com',
-    'http://localhost:3000',
-    'http://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
+    'https://localhost:3000',
+    'https://*.127.0.0.1'
+    'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
     'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
     'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
     'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
