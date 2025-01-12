@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-import re
-from datetime import timedelta
 
 if os.path.exists('env.py'):
     import env
@@ -39,22 +37,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #     'PAGE_SIZE': 10,
 #     'DATETIME_FORMAT': '%d %b %Y'
 # }
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [(
-#         'rest_framework.authentication.SessionAuthentication'
-#         if 'DEV' in os.environ
-#         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-#     )],
-#     'DEFAULT_PAGINATION_CLASS':
-#         'rest_framework.pagination.PageNumberPagination',
-#     'PAGE_SIZE': 10,
-#     'DATETIME_FORMAT': '%d %b %Y',
-# }
-# if 'DEV' not in os.environ:
-#     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-#         'rest_framework.renderers.JSONRenderer',
-#     ]
 
 REST_FRAMEWORK = {
     # use session authentication in Dev & JSON Web Token auth in Prod
@@ -213,11 +195,6 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 CORS_ALLOW_CREDENTIALS = True
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
 ROOT_URLCONF = 'managey_drf.urls'
 
 TEMPLATES = [
@@ -282,6 +259,8 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
