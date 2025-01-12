@@ -1,7 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from dj_rest_auth.views import LoginView
 from .settings import (
     JWT_AUTH_COOKIE, JWT_AUTH_REFRESH_COOKIE, JWT_AUTH_SAMESITE,
     JWT_AUTH_SECURE,
@@ -10,7 +8,6 @@ from .settings import (
 
 
 @api_view()
-@permission_classes([AllowAny])
 def root_route(request):
     return Response({
         "message": "Welcome to my managey_drf API!"
@@ -38,11 +35,3 @@ def logout_route(request):
         secure=JWT_AUTH_SECURE,
     )
     return response
-
-#Added a custom login view
-class CustomLoginView(LoginView):
-    def get_response(self):
-        response = super().get_response()
-        user_serializer = CurrentUserSerializer(self.user)
-        response.data.update(user_serializer.data)
-        return response

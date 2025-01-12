@@ -59,52 +59,42 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #     ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # use session authentication in Dev & JSON Web Token auth in Prod
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    # paginate list view
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    # make date & time more human readable
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
+# render JSON in PROD
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 
-
+# enable token authentication
 REST_USE_JWT = True
+# make sure to send over HTTPS only
 JWT_AUTH_SECURE = True
+# access token
 JWT_AUTH_COOKIE = 'my-app-auth'
+# refresh token
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+# allow front end and back end deployed to different platforms
+JWT_AUTH_SAMESITE = 'None'
 
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'BLACKLIST_AFTER_ROTATION': True,
-    'ROTATE_REFRESH_TOKENS': True,
-}
-
-
-JWT_AUTH_SAMESITE = "None"
-JWT_AUTH_HTTPONLY = True
-
-
+# override default serializer
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'managey_drf.serializers.CurrentUserSerializer'
 }
 
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY= True
-CSRF_USE_SESSIONS= True
-
-
-if 'DEV' in os.environ:
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
-    JWT_AUTH_SECURE = False
-    JWT_AUTH_SAMESITE = "Lax"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -200,8 +190,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
