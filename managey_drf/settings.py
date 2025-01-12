@@ -70,8 +70,8 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
-# DEBUG = False
+# DEBUG = 'DEV' in os.environ
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = [
     'https://managey-a1b31600d931.herokuapp.com',
