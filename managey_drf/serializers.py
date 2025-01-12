@@ -8,7 +8,6 @@ class CurrentUserSerializer(UserDetailsSerializer):
     """
     profile_id = serializers.ReadOnlyField(source='profile.id', read_only=True)
     profile_image = serializers.ReadOnlyField(source='profile.image.url')
-    name = serializers.ReadOnlyField(source='name')
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('profile_id', 'profile_image', 'name')
+        fields = UserDetailsSerializer.Meta.fields + ('profile_id', 'profile_image')
