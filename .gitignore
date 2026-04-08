@@ -1,9 +1,38 @@
 core.Microsoft*
 core.mongo*
 core.python*
+
+# Environment variables (NEVER commit these - they contain secrets)
 env.py
+.env
+.env.local
+.env.*.local
+
+# Python cache and bytecode
 __pycache__/
 *.py[cod]
+
+# Python virtual environments (machine-specific, never commit)
+venv/
+env/
+.venv/
+
+# Node.js
 node_modules/
-.github/
+
+# Cloudinary (legacy)
 cloudinary_python.txt
+
+# Database files (never commit databases)
+*.sqlite3
+db.sqlite3
+
+# Firebase credentials (NEVER commit these)
+firebase-key.json
+*.key
+*.pem
+
+# IDE and OS files
+.vscode/settings.local.json
+.DS_Store
+Thumbs.db

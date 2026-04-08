@@ -15,6 +15,16 @@ import os
 import dj_database_url
 import re
 
+# Load environment variables from .env file (if it exists)
+# This allows local development without setting system env vars
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # python-dotenv not installed yet
+    pass
+
+# Legacy support for old env.py pattern (Code Institute)
 if os.path.exists('env.py'):
     import env
 
@@ -70,56 +80,34 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEV' in os.environ
-DEBUG = False
+# Reads from .env file. Defaults to False for safety — production must
+# explicitly set DEBUG=True (which it never should).
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://managey-a1b31600d931.herokuapp.com',
-    'https://manageydrf-8a469d59154b.herokuapp.com',
-    'https://localhost:3000',
-    'https://*.127.0.0.1',
-    'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-    'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
-    'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-    'https://8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
-    'https://8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io',
-    'https://3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io',
-    'https://8000-njorogetracy-manageydrf-y4gopnnwl7d.ws-eu117.gitpod.io'
-]
+# Trusted origins for CSRF protection - read from environment variable
+# Example: CSRF_TRUSTED_ORIGINS=https://Njorogetracy.github.io,http://localhost:3000
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    'CSRF_TRUSTED_ORIGINS',
+    'http://localhost:3000'
+).split(',')
 
-ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
-    'manageydrf-8a469d59154b.herokuapp.com',
-    'managey-a1b31600d931.herokuapp.com',
-    'localhost',
-    '8000-njorogetracy-manageydrf-zmg7lvoxv21.ws.codeinstitute-ide.net',
-    '8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-    '8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-    '8000-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-    '3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
-    '8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-    '8000-njorogetracy-manageydrf-yg2uhgywowr.ws-eu117.gitpod.io',
-    '3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io',
-    '8000-njorogetracy-manageydrf-y4gopnnwl7d.ws-eu117.gitpod.io'
-]
+# Allowed hosts - which domains Django will respond to
+# Example: ALLOWED_HOSTS=Njorogetracy.replit.dev,localhost,127.0.0.1
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    'localhost,127.0.0.1'
+).split(',')
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS - explicitly disabled blanket allow (security)
+CORS_ORIGIN_ALLOW_ALL = False
 
-CORS_ALLOWED_ORIGINS = [
-                        'https://managey-a1b31600d931.herokuapp.com',
-                        'https://manageydrf-8a469d59154b.herokuapp.com',
-                        'https://3000-njorogetracy-managey-47om2pk1bb3.ws-eu117.gitpod.io',
-                        'https://3000-njorogetracy-managey-g2u276z7yhs.ws.codeinstitute-ide.net',
-                        'https://3000-njorogetracy-managey-hppr9jkculs.ws-eu117.gitpod.io',
-                        'https://8000-njorogetracy-manageydrf-fouja6zojup.ws-eu117.gitpod.io',
-                        'https://8000-njorogetracy-manageydrf-qt48gzd5j16.ws-eu117.gitpod.io',
-                        'https://3000-njorogetracy-managey-1oyr39h082d.ws-eu117.gitpod.io',
-                        'https://8080-njorogetracy-manageydrf-6yzu06ox9vm.ws-eu117.gitpod.io',
-                        'https://3000-njorogetracy-managey-uqidzch6dq8.ws-eu117.gitpod.io'
-                        ]
+# CORS allowed origins - which frontend domains can call our API
+# Example: CORS_ALLOWED_ORIGINS=https://Njorogetracy.github.io,http://localhost:3000
+CORS_ALLOWED_ORIGINS = os.getenv(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:3000'
+).split(',')
 
 
 
@@ -208,17 +196,34 @@ WSGI_APPLICATION = 'managey_drf.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+#
+# Local development: uses SQLite (when DEV env var is set)
+# Production: uses Neon PostgreSQL via DATABASE_URL env var
+# Get your free Neon database at: https://neon.tech (no credit card required)
 
 if 'DEV' in os.environ:
+    # Local development - SQLite file in project root
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
-         }
-     }
+        }
+    }
 else:
+    # Production - Neon PostgreSQL (or any postgres:// URL)
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    if not DATABASE_URL:
+        raise ValueError(
+            "DATABASE_URL environment variable is not set. "
+            "Set DEV=1 in .env for local SQLite, or set DATABASE_URL "
+            "to your Neon PostgreSQL connection string."
+        )
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,  # Reuse connections for 10 min (Neon best practice)
+            ssl_require=True,  # Neon requires SSL
+        )
     }
 
 
