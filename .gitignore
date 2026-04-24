@@ -30,6 +30,9 @@ db.sqlite3
 # Locally uploaded media files (dev only - production uses Cloudinary)
 media/
 
+# collectstatic output — generated at deploy time, never committed
+staticfiles/
+
 # Firebase credentials (NEVER commit these)
 firebase-key.json
 *.key
