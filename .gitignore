@@ -27,6 +27,9 @@ cloudinary_python.txt
 *.sqlite3
 db.sqlite3
 
+# Locally uploaded media files (dev only - production uses Cloudinary)
+media/
+
 # Firebase credentials (NEVER commit these)
 firebase-key.json
 *.key

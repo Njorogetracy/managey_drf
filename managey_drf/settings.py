@@ -28,22 +28,28 @@ except ImportError:
 if os.path.exists('env.py'):
     import env
 
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
-}
 MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Storage backend: local disk for DEV, Cloudinary for production.
+# In dev we avoid the external Cloudinary dependency; in production we use it.
+if 'DEV' in os.environ:
+    MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'media')
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+else:
+    CLOUDINARY_STORAGE = {
+        'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+    }
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    # use session authentication in Dev & JSON Web Token auth in Prod
-    'DEFAULT_AUTHENTICATION_CLASSES': [(
-        'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' in os.environ
-        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    )],
+    # JWT auth in both dev and prod so the React frontend can log in
+    # the same way locally as in production.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ],
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -58,14 +64,16 @@ if 'DEV' not in os.environ:
 
 # enable token authentication
 REST_USE_JWT = True
-# make sure to send over HTTPS only
-JWT_AUTH_SECURE = True
+# HTTPS-only cookies in production. Local dev is HTTP so browsers would
+# refuse to store the cookie if this were True.
+JWT_AUTH_SECURE = 'DEV' not in os.environ
 # access token
 JWT_AUTH_COOKIE = 'my-app-auth'
 # refresh token
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-# allow front end and back end deployed to different platforms
-JWT_AUTH_SAMESITE = 'None'
+# SameSite=None requires Secure=True, which we can't use on HTTP localhost.
+# Use Lax in dev (same-origin cookies work fine), None in prod (cross-site).
+JWT_AUTH_SAMESITE = 'Lax' if 'DEV' in os.environ else 'None'
 
 # override default serializer
 REST_AUTH_SERIALIZERS = {
