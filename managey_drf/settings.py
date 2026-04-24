@@ -282,7 +282,10 @@ STATIC_URL = 'static/'
 # STATIC_ROOT is where `collectstatic` dumps everything for production.
 # whitenoise reads from here to serve admin + DRF browsable API assets.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# CompressedStaticFilesStorage gzips/brotli-compresses files but skips the
+# hash-manifest step. The manifest variant breaks on Django 3.2 admin CSS
+# (@import references don't all resolve under strict manifest parsing).
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
