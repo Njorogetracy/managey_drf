@@ -280,12 +280,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 # STATIC_ROOT is where `collectstatic` dumps everything for production.
-# whitenoise reads from here to serve admin + DRF browsable API assets.
+# whitenoise middleware reads from here to serve admin + DRF browsable API.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# CompressedStaticFilesStorage gzips/brotli-compresses files but skips the
-# hash-manifest step. The manifest variant breaks on Django 3.2 admin CSS
-# (@import references don't all resolve under strict manifest parsing).
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Django's default storage — no build-time compression. The whitenoise
+# middleware still gzips on-the-fly at request time, so we lose little.
+# Whitenoise's own storage classes don't play nicely with Django 3.2's admin
+# static manifest (missing LICENSE.txt, broken CSS @imports).
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
