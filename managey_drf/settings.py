@@ -36,8 +36,12 @@ if 'DEV' in os.environ:
     MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'media')
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 else:
+    # Use the three-variable format (CLOUD_NAME / API_KEY / API_SECRET) rather
+    # than the combined CLOUDINARY_URL — easier to configure correctly in Render.
     CLOUDINARY_STORAGE = {
-        'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
     }
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
