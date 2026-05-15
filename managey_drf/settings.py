@@ -31,13 +31,16 @@ if os.path.exists('env.py'):
 MEDIA_URL = '/media/'
 
 # Storage backend: local disk for DEV, Cloudinary for production.
-# In dev we avoid the external Cloudinary dependency; in production we use it.
+# In dev we avoid the external Cloudinary dependency; in prod we use it.
 if 'DEV' in os.environ:
-    MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'media')
+    MEDIA_ROOT = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        'media',
+    )
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 else:
-    # Use the three-variable format (CLOUD_NAME / API_KEY / API_SECRET) rather
-    # than the combined CLOUDINARY_URL — easier to configure correctly in Render.
+    # Use three-variable format (CLOUD_NAME / API_KEY / API_SECRET) rather
+    # than combined CLOUDINARY_URL — easier to configure in Render.
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
         'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
@@ -96,8 +99,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # explicitly set DEBUG=True (which it never should).
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-# Trusted origins for CSRF protection - read from environment variable
-# Example: CSRF_TRUSTED_ORIGINS=https://Njorogetracy.github.io,http://localhost:3000
+# Trusted origins for CSRF protection - read from environment variable.
+# Example: CSRF_TRUSTED_ORIGINS=https://example.com,http://localhost:3000
 CSRF_TRUSTED_ORIGINS = os.getenv(
     'CSRF_TRUSTED_ORIGINS',
     'http://localhost:3000'
@@ -114,8 +117,8 @@ ALLOWED_HOSTS = os.getenv(
 # CORS - explicitly disabled blanket allow (security)
 CORS_ORIGIN_ALLOW_ALL = False
 
-# CORS allowed origins - which frontend domains can call our API
-# Example: CORS_ALLOWED_ORIGINS=https://Njorogetracy.github.io,http://localhost:3000
+# CORS allowed origins - which frontend domains can call our API.
+# Example: CORS_ALLOWED_ORIGINS=https://example.com,http://localhost:3000
 CORS_ALLOWED_ORIGINS = os.getenv(
     'CORS_ALLOWED_ORIGINS',
     'http://localhost:3000'
@@ -236,7 +239,7 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(
             DATABASE_URL,
-            conn_max_age=600,  # Reuse connections for 10 min (Neon best practice)
+            conn_max_age=600,  # Reuse connections for 10 min (Neon)
             ssl_require=True,  # Neon requires SSL
         )
     }
@@ -245,19 +248,12 @@ else:
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
+_AUTH_VALIDATORS = 'django.contrib.auth.password_validation'
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME':'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': f'{_AUTH_VALIDATORS}.UserAttributeSimilarityValidator'},
+    {'NAME': f'{_AUTH_VALIDATORS}.MinimumLengthValidator'},
+    {'NAME': f'{_AUTH_VALIDATORS}.CommonPasswordValidator'},
+    {'NAME': f'{_AUTH_VALIDATORS}.NumericPasswordValidator'},
 ]
 
 

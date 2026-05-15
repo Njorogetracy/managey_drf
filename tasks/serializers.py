@@ -31,9 +31,9 @@ class TaskSerializer(serializers.ModelSerializer):
             for username in assigned_users_usernames:
                 try:
                     user = User.objects.get(username=username)
-                    instance.shared_users.add(user)
+                    instance.assigned_users.add(user)
                 except User.DoesNotExist:
-                    print(f"User with username {username} does not exist.")
+                    pass
 
         return super().update(instance, validated_data)
 
