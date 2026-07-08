@@ -2,7 +2,7 @@
 
 This is the backend REST API repository whic is used for my frontend project []()
 
-View Live site: [here](https://managey-a1b31600d931.herokuapp.com/)
+View Live API: [here](https://managey-drf.onrender.com/)
 
 View Frontend  [here](https://github.com/Njorogetracy/managey)
  
